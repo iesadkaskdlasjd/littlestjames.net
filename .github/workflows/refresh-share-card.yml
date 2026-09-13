@@ -1,0 +1,49 @@
+name: Refresh share card
+
+# The og:image is a static PNG — Discord and X fetch it with a crawler that
+# runs no JavaScript, so the page cannot influence it. The only value on the
+# card that can drift is the server version, so this checks the live version
+# daily and rebuilds the card ONLY when it actually changes. In practice that
+# means a handful of commits a year, not one a day.
+
+on:
+  schedule:
+    # Daily at 06:17 UTC. Odd minute on purpose: GitHub's scheduler is
+    # busiest on the hour and delays those runs the most.
+    - cron: "17 6 * * *"
+  workflow_dispatch:        # lets you trigger it by hand from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: pip install --quiet "Pillow>=10"
+
+      - name: Rebuild the card if the version changed
+        run: python tools/make_og.py
+
+      - name: Commit only if something actually changed
+        run: |
+          if [ -n "$(git status --porcelain assets/og-image.png tools/og-state.json)" ]; then
+            version=$(python -c "import json;print(json.load(open('tools/og-state.json'))['version'])")
+            # Commit as the bot, never as a person — this repo is deliberately
+            # not tied to a personal identity.
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/og-image.png tools/og-state.json
+            git commit -m "Refresh share card for version ${version}"
+            git push
+            echo "card rebuilt for ${version}"
+          else
+            echo "version unchanged - nothing committed"
+          fi
