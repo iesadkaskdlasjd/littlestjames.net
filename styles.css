@@ -1,0 +1,635 @@
+/* =========================================================
+   Littlest James — littlestjames.net
+   Plain CSS, no build step.
+   Palette: warm gold / deep teal / near-black
+   ========================================================= */
+
+:root {
+  --gold:       #E8B44C;
+  --gold-soft:  #F3D08A;
+  --gold-deep:  #B5842C;
+
+  --teal:       #1B4D4B;
+  --teal-deep:  #123634;
+  --teal-lift:  #266764;
+
+  --ink:        #0B0F0F;
+  --ink-2:      #101616;
+  --ink-3:      #161E1E;
+
+  --sand:       #EFE6D6;
+  --sand-dim:   #C2BCAF;
+  --muted:      #8C9997;
+
+  --wrap:       1080px;
+  --step:       12px;         /* pixel grid unit */
+
+  --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --sans: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--sand);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+::selection { background: var(--gold); color: var(--ink); }
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--gold);
+  color: var(--ink);
+  padding: .75rem 1.25rem;
+  font-weight: 800;
+  z-index: 99;
+}
+.skip:focus { left: 0; }
+
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(4rem, 12vh, 8rem) 0 clamp(7rem, 16vh, 10rem);
+  overflow: hidden;
+  isolation: isolate;
+  /* Sunset-over-water base. Survives on its own if hero.jpg is missing. */
+  background:
+    linear-gradient(180deg, #050808 0%, #0B1413 34%, #17403E 70%, #1B4D4B 100%);
+}
+
+/* Optional generated artwork, layered over the gradient */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: url("assets/hero.jpg");
+  background-size: cover;
+  background-position: center 60%;
+  opacity: .34;
+  filter: saturate(.85) contrast(1.05);
+}
+
+/* Warm sun glow behind the wordmark */
+.hero__sun {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 46%;
+  width: min(88vw, 760px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at center,
+    rgba(232, 180, 76, .30) 0%,
+    rgba(232, 180, 76, .13) 34%,
+    rgba(232, 180, 76, 0) 68%);
+  pointer-events: none;
+}
+
+.hero__inner { position: relative; }
+
+.hero__icon {
+  width: clamp(84px, 16vw, 112px);
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 auto clamp(1.5rem, 4vw, 2.25rem);
+  /* No frame — the logo has its own transparency, so it sits directly on
+     the art. drop-shadow follows the artwork's alpha; box-shadow would
+     draw a rectangle behind it and put the box straight back. */
+  filter: drop-shadow(0 10px 26px rgba(0, 0, 0, .75));
+}
+
+.hero__title {
+  margin: 0;
+  font-weight: 900;
+  font-size: clamp(3.1rem, 13.5vw, 7.8rem);
+  line-height: .88;
+  letter-spacing: -.04em;
+  text-shadow: 0 6px 40px rgba(0, 0, 0, .55);
+}
+
+/* Wordmark: Little / St / James, coloured to carry the LittleStJames casing */
+.wm-little { color: var(--sand); }
+.wm-st     { color: var(--gold); }
+.wm-james  { display: block; color: var(--gold); }
+
+.hero__tag {
+  margin: clamp(1.35rem, 4vw, 2rem) auto 0;
+  max-width: 34ch;
+  font-size: clamp(1.02rem, 2.6vw, 1.28rem);
+  font-weight: 500;
+  color: var(--sand-dim);
+  text-wrap: balance;
+}
+
+/* ---------- The big copy button ---------- */
+
+.copy { margin-top: clamp(2rem, 6vw, 3rem); }
+
+.copy__btn {
+  --notch: 14px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .2rem;
+  width: min(100%, 460px);
+  padding: clamp(1rem, 3.4vw, 1.4rem) clamp(1.5rem, 5vw, 2.75rem);
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--ink);
+  background: linear-gradient(175deg, var(--gold-soft) 0%, var(--gold) 46%, var(--gold-deep) 100%);
+  box-shadow:
+    0 10px 0 -2px rgba(0, 0, 0, .45),
+    0 22px 50px rgba(232, 180, 76, .22);
+  /* pixel-cut corners */
+  clip-path: polygon(
+    var(--notch) 0, calc(100% - var(--notch)) 0,
+    100% var(--notch), 100% calc(100% - var(--notch)),
+    calc(100% - var(--notch)) 100%, var(--notch) 100%,
+    0 calc(100% - var(--notch)), 0 var(--notch)
+  );
+  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+}
+
+.copy__btn:hover  { transform: translateY(-3px); filter: brightness(1.05); }
+.copy__btn:active { transform: translateY(2px); box-shadow: 0 6px 0 -2px rgba(0,0,0,.45); }
+.copy__btn:focus-visible { outline: 3px solid var(--sand); outline-offset: 5px; }
+
+.copy__label {
+  font-family: var(--mono);
+  font-size: clamp(1.15rem, 4.6vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+  /* Break only when there is genuinely no room, rather than always. */
+  overflow-wrap: anywhere;
+}
+
+.copy__hint {
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  opacity: .72;
+}
+
+.copy__btn.is-copied {
+  background: linear-gradient(175deg, #7FD6A4 0%, #4FBF85 50%, #2E8B5F 100%);
+}
+
+.copy__status {
+  min-height: 1.4em;
+  margin: .85rem 0 0;
+  font-size: .88rem;
+  color: var(--gold-soft);
+}
+
+/* ---------- Live player count ---------- */
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  margin: clamp(1.4rem, 4vw, 1.9rem) 0 0;
+  padding: .5rem 1.05rem .5rem .9rem;
+  border: 1px solid rgba(239, 230, 214, .16);
+  border-radius: 999px;
+  background: rgba(11, 15, 15, .55);
+  backdrop-filter: blur(6px);
+  font-size: .87rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: var(--sand-dim);
+}
+
+.live__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--muted);
+  flex: none;
+}
+
+.live[data-state="online"]  { color: var(--sand); border-color: rgba(79, 191, 133, .4); }
+.live[data-state="online"] .live__dot {
+  background: #4FBF85;
+  box-shadow: 0 0 0 0 rgba(79, 191, 133, .6);
+  animation: livePulse 2.4s ease-out infinite;
+}
+
+.live[data-state="empty"] .live__dot   { background: var(--gold); }
+.live[data-state="offline"]            { border-color: rgba(226, 108, 96, .35); }
+.live[data-state="offline"] .live__dot { background: #E26C60; }
+.live[data-state="loading"] .live__dot { animation: liveBlink 1.3s ease-in-out infinite; }
+.live[data-state="unknown"]            { opacity: .72; }
+
+@keyframes livePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(79, 191, 133, .55); }
+  70%  { box-shadow: 0 0 0 9px rgba(79, 191, 133, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(79, 191, 133, 0); }
+}
+@keyframes liveBlink {
+  0%, 100% { opacity: .3; }
+  50%      { opacity: 1; }
+}
+
+.live-who {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .45rem .5rem;
+  margin: .9rem auto 0;
+  padding: 0;
+  max-width: 40ch;
+}
+/* display:flex would otherwise beat the [hidden] attribute */
+.live-who[hidden] { display: none; }
+
+.who {
+  display: inline-flex;
+  align-items: center;
+  gap: .42rem;
+  padding: .22rem .62rem .22rem .24rem;
+  border-radius: 999px;
+  background: rgba(239, 230, 214, .06);
+  box-shadow: inset 0 0 0 1px rgba(232, 180, 76, .2);
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--sand-dim);
+  line-height: 1.4;
+}
+
+.who__face {
+  width: 22px;
+  height: 22px;
+  border-radius: 3px;
+  flex: none;
+  /* A Minecraft face is an 8x8 sprite — keep the pixels crisp. */
+  image-rendering: pixelated;
+}
+
+.who__name { overflow-wrap: anywhere; }
+
+.who--more {
+  padding-inline: .62rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ---------- Hero meta strip ---------- */
+
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem clamp(1rem, 4vw, 2.25rem);
+  margin: clamp(2rem, 5vw, 2.75rem) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero__meta strong { color: var(--sand); font-weight: 800; }
+
+/* ---------- Pixel shoreline ---------- */
+
+.shore {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(70px, 12vh, 130px);
+  background: linear-gradient(180deg, rgba(11,15,15,0) 0%, var(--ink) 72%);
+  pointer-events: none;
+}
+.shore::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% - var(--step));
+  height: var(--step);
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(232, 180, 76, .22) 0 var(--step),
+    transparent var(--step) calc(var(--step) * 2)
+  );
+}
+
+/* =========================================================
+   SECTION DIVIDER
+   Full-bleed strip. The art is pre-cropped to just the wave
+   band (1536x134), so it needs no offset: at 100vw wide it
+   renders 134/1536 = 8.72vw tall, which is the element height.
+   ========================================================= */
+
+.divider {
+  height: 8.72vw;
+  background-image: url("assets/divider.png");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.section {
+  padding: clamp(4.5rem, 12vw, 8rem) 0;
+  position: relative;
+}
+
+.section--alt {
+  background: var(--ink-2);
+  border-block: 1px solid rgba(232, 180, 76, .12);
+}
+
+.eyebrow {
+  margin: 0 0 .9rem;
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: var(--step);
+  height: var(--step);
+  margin-right: .7rem;
+  background: var(--gold);
+  vertical-align: -1px;
+}
+
+.h2 {
+  margin: 0 0 clamp(1.5rem, 4vw, 2.25rem);
+  font-size: clamp(1.9rem, 6vw, 3.1rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -.03em;
+  max-width: 20ch;
+  text-wrap: balance;
+}
+
+.prose {
+  max-width: 62ch;
+  font-size: clamp(1.02rem, 2.3vw, 1.12rem);
+  color: var(--sand-dim);
+}
+.prose p { margin: 0 0 1.15rem; }
+.prose p:last-child { margin-bottom: 0; }
+
+/* =========================================================
+   RULES
+   ========================================================= */
+
+.rules {
+  counter-reset: rule;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.25rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+
+.rules li {
+  counter-increment: rule;
+  position: relative;
+  padding-left: clamp(3.1rem, 8vw, 3.8rem);
+}
+
+.rules li::before {
+  content: counter(rule, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: -.12em;
+  font-family: var(--mono);
+  font-size: 1.32rem;
+  font-weight: 700;
+  color: var(--gold);
+  opacity: .9;
+}
+
+.rules h3 {
+  margin: 0 0 .45rem;
+  font-size: clamp(1.08rem, 2.8vw, 1.22rem);
+  font-weight: 800;
+  letter-spacing: -.015em;
+  line-height: 1.25;
+}
+
+.rules p {
+  margin: 0;
+  color: var(--sand-dim);
+  font-size: .98rem;
+}
+
+/* =========================================================
+   HOW TO JOIN
+   ========================================================= */
+
+.cards {
+  display: grid;
+  gap: clamp(1.1rem, 3vw, 1.6rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+  align-items: stretch;
+}
+
+.card {
+  padding: clamp(1.5rem, 4vw, 2rem);
+  background: var(--ink-3);
+  border: 1px solid rgba(232, 180, 76, .16);
+  border-radius: 4px;
+  height: 100%;
+}
+
+.card--primary {
+  background: linear-gradient(168deg, var(--teal) 0%, var(--teal-deep) 100%);
+  border-color: rgba(232, 180, 76, .42);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .38);
+}
+
+.card--warn {
+  background: var(--ink-2);
+  border-color: rgba(232, 180, 76, .3);
+  border-left: 4px solid var(--gold);
+}
+
+.card__kicker {
+  margin: 0 0 .55rem;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.card__title {
+  margin: 0 0 .9rem;
+  font-size: clamp(1.2rem, 3.2vw, 1.45rem);
+  font-weight: 900;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+}
+
+.card__body {
+  margin: 0 0 1rem;
+  color: var(--sand-dim);
+  font-size: .97rem;
+}
+
+.card__note {
+  margin: 1.1rem 0 0;
+  padding-top: .9rem;
+  border-top: 1px solid rgba(232, 180, 76, .16);
+  font-size: .86rem;
+  color: var(--muted);
+}
+
+.steps {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--sand-dim);
+  font-size: .97rem;
+}
+.steps li { margin-bottom: .5rem; }
+.steps li::marker { color: var(--gold); font-weight: 700; }
+.steps strong { color: var(--sand); font-weight: 700; }
+
+.bigip { margin: 0 0 .4rem; }
+.bigip .ip { font-size: clamp(.95rem, 3.4vw, 1.1rem); padding: .55rem .8rem; }
+
+/* ---------- Copyable IP chips ---------- */
+
+.ip {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: .93em;
+  font-weight: 600;
+  color: var(--gold);
+  background: rgba(232, 180, 76, .1);
+  border: 1px solid rgba(232, 180, 76, .3);
+  border-radius: 3px;
+  padding: .15rem .45rem;
+  word-break: break-all;
+  transition: background .14s ease, color .14s ease, border-color .14s ease;
+}
+.ip[role="button"] { cursor: pointer; }
+.ip[role="button"]:hover {
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--gold);
+}
+.ip:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.ip.is-copied {
+  background: #4FBF85;
+  border-color: #4FBF85;
+  color: var(--ink);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+  background: var(--teal-deep);
+  border-top: var(--step) solid var(--ink);
+  padding: clamp(3rem, 8vw, 4.5rem) 0 clamp(2.5rem, 6vw, 3.5rem);
+  position: relative;
+}
+.footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--step);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--ink) 0 var(--step),
+    transparent var(--step) calc(var(--step) * 2)
+  );
+}
+
+.footer__inner { text-align: center; }
+
+.footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+}
+.footer__brand img {
+  width: 40px;
+  height: 40px;
+}
+
+.footer__meta {
+  margin: 1.25rem 0 0;
+  font-size: .92rem;
+  color: var(--sand-dim);
+}
+.footer__meta .dot { margin: 0 .5rem; color: var(--gold); }
+
+.footer__fine {
+  margin: 1.5rem 0 0;
+  font-size: .78rem;
+  color: rgba(239, 230, 214, .42);
+}
+
+/* =========================================================
+   SMALL SCREENS
+   ========================================================= */
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .hero { min-height: 92svh; }
+  .copy__btn { --notch: 10px; width: 100%; }
+  .rules li { padding-left: 2.6rem; }
+  .rules li::before { font-size: 1.15rem; }
+}

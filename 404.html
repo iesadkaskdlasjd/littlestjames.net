@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lost at sea — LittleStJames</title>
+<meta name="description" content="That page doesn't exist. Head back to LittleStJames.net">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B0F0F">
+
+<link rel="icon" href="/assets/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/styles.css">
+<style>
+  /* The 404 is a single centred panel rather than a scrolling page. */
+  .lost {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(2rem, 8vh, 5rem) 0;
+    overflow: hidden;
+    isolation: isolate;
+    /* Flat near-black base: the art carries the colour here, so a gradient
+       underneath would only tint it. */
+    background: #050808;
+  }
+  .lost__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-image: url("/assets/404.jpg");
+    background-size: cover;
+    background-position: center 58%;
+    /* This art is already very dark and nearly empty, so it can sit far
+       higher than the hero's without fighting the type. */
+    opacity: .78;
+    filter: saturate(.95);
+  }
+  .lost__sun {
+    position: absolute;
+    z-index: -1;
+    left: 50%; top: 48%;
+    width: min(86vw, 640px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at center,
+      rgba(232,180,76,.22) 0%, rgba(232,180,76,.09) 36%, rgba(232,180,76,0) 70%);
+    pointer-events: none;
+  }
+  .lost__code {
+    margin: 0;
+    font-size: clamp(4.5rem, 22vw, 11rem);
+    font-weight: 900;
+    line-height: .82;
+    letter-spacing: -.05em;
+    color: var(--gold);
+    text-shadow: 0 8px 46px rgba(0,0,0,.6);
+  }
+  .lost__title {
+    margin: clamp(1rem, 3vw, 1.5rem) 0 0;
+    font-size: clamp(1.5rem, 5.5vw, 2.4rem);
+    font-weight: 900;
+    letter-spacing: -.03em;
+    line-height: 1.05;
+    color: var(--sand);
+  }
+  .lost__body {
+    margin: clamp(.9rem, 3vw, 1.25rem) auto 0;
+    max-width: 42ch;
+    font-size: clamp(1rem, 2.6vw, 1.1rem);
+    color: var(--sand-dim);
+    text-wrap: balance;
+  }
+  .lost__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .9rem;
+    justify-content: center;
+    margin-top: clamp(1.8rem, 5vw, 2.5rem);
+  }
+  .btn {
+    --notch: 12px;
+    display: inline-block;
+    padding: .85rem 1.6rem;
+    font-family: inherit;
+    font-size: .92rem;
+    font-weight: 800;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    border: 0;
+    clip-path: polygon(
+      var(--notch) 0, calc(100% - var(--notch)) 0,
+      100% var(--notch), 100% calc(100% - var(--notch)),
+      calc(100% - var(--notch)) 100%, var(--notch) 100%,
+      0 calc(100% - var(--notch)), 0 var(--notch));
+    transition: transform .14s ease, filter .14s ease;
+  }
+  .btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+  .btn:focus-visible { outline: 3px solid var(--sand); outline-offset: 4px; }
+  .btn--gold { background: linear-gradient(175deg, var(--gold-soft), var(--gold) 50%, var(--gold-deep)); color: var(--ink); }
+  .btn--ghost {
+    background: rgba(239,230,214,.06);
+    color: var(--sand);
+    box-shadow: inset 0 0 0 1px rgba(232,180,76,.35);
+  }
+</style>
+</head>
+<body>
+
+<main class="lost">
+  <div class="lost__bg" aria-hidden="true"></div>
+  <div class="lost__sun" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <img class="hero__icon" src="/assets/icon.png" alt="" width="96" height="96">
+
+    <p class="lost__code">404</p>
+    <h1 class="lost__title">You've drifted off the map.</h1>
+    <p class="lost__body">
+      There's nothing at this address — just open water. The island is back the other way.
+    </p>
+
+    <div class="lost__actions">
+      <a class="btn btn--gold" href="/">Back to shore</a>
+      <a class="btn btn--ghost" href="/#join">How to join</a>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

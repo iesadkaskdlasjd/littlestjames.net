@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LittleStJames — Minecraft Survival</title>
+<meta name="description" content="A small, friendly 26.2 survival server. Java Edition. Open to everyone — join at LittleStJames.net">
+<link rel="canonical" href="https://littlestjames.net/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://littlestjames.net/">
+<meta property="og:title" content="LittleStJames — Minecraft Survival">
+<meta property="og:description" content="A small, friendly 26.2 survival server. Java Edition. Open to everyone — join at LittleStJames.net">
+<meta property="og:image" content="https://littlestjames.net/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0F0F">
+
+<link rel="icon" href="assets/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#join">Skip to how to join</a>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__sun" aria-hidden="true"></div>
+
+  <div class="wrap hero__inner">
+    <img class="hero__icon" src="assets/icon.png" alt="LittleStJames server icon" width="132" height="132">
+
+    <h1 class="hero__title">
+      <span class="wm-little">Little</span> <span class="wm-st">St</span>
+      <span class="wm-james">James</span>
+    </h1>
+    <p class="hero__tag">A small island, a big ocean, and whatever you decide to build on it.</p>
+
+    <div class="copy">
+      <button class="copy__btn" type="button" id="copyBtn" data-ip="LittleStJames.net">
+        <span class="copy__label" id="copyLabel">LittleStJames.net</span>
+        <span class="copy__hint" id="copyHint">Tap to copy IP</span>
+      </button>
+      <p class="copy__status" id="copyStatus" role="status" aria-live="polite"></p>
+    </div>
+
+    <p class="live" id="live" data-state="loading" role="status">
+      <span class="live__dot" aria-hidden="true"></span>
+      <span class="live__text" id="liveText">Checking the server…</span>
+    </p>
+    <p class="live-who" id="liveWho" hidden></p>
+
+    <ul class="hero__meta">
+      <li><strong class="ver">26.2</strong> Survival</li>
+      <li><strong>Java</strong> Edition</li>
+      <li><strong>Open</strong> to everyone</li>
+    </ul>
+  </div>
+
+  <div class="shore" aria-hidden="true"></div>
+</header>
+
+<main>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <p class="eyebrow">What this is</p>
+      <h2 class="h2">A survival server that stays small on purpose.</h2>
+      <div class="prose">
+        <p>LittleStJames is a plain <span class="ver">26.2</span> survival world. No ranks to buy, no crates, no lobby with
+        seventeen portals in it. You spawn, you find somewhere you like, and you start digging.</p>
+        <p>The world doesn't get reset on a schedule, so the things you build are still going to be
+        there next month. Builds tend to cluster along the coast and spread inland from there —
+        find a stretch of shoreline nobody has claimed and make it yours.</p>
+        <p>It's open to anyone. No whitelist, no application, no Discord you have to join first.
+        Just be someone the rest of us want to share a world with.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"></div>
+
+  <!-- ============ RULES ============ -->
+  <section class="section section--alt" id="rules">
+    <div class="wrap">
+      <p class="eyebrow">The short list</p>
+      <h2 class="h2">Rules</h2>
+
+      <ol class="rules">
+        <li>
+          <h3>Don't grief, don't steal.</h3>
+          <p>Other people's builds, chests, farms and animals are theirs. If it isn't yours and you
+          weren't invited, leave it alone.</p>
+        </li>
+        <li>
+          <h3>Give people room.</h3>
+          <p>Settle a good few hundred blocks from someone else's base unless they've asked you to
+          move in next door.</p>
+        </li>
+        <li>
+          <h3>No cheats or X-ray.</h3>
+          <p>No hacked clients, no X-ray packs, no radar mods, nothing that plays the game for you
+          while you're away from the keyboard.</p>
+        </li>
+        <li>
+          <h3>Ask before you reshape the map.</h3>
+          <p>Big terraforming near someone else's build, or draining an ocean they can see from
+          their window, is a conversation first.</p>
+        </li>
+        <li>
+          <h3>Keep chat decent.</h3>
+          <p>No slurs, no harassment, no stirring things up for fun. It's a small server — it only
+          takes one person to sour it.</p>
+        </li>
+        <li>
+          <h3>Clean up after yourself.</h3>
+          <p>Fill your holes, take down your dirt towers, chop the floating trees, and don't leave
+          lava where someone is going to walk into it.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ JOIN ============ -->
+  <section class="section" id="join">
+    <div class="wrap">
+      <p class="eyebrow">Getting in</p>
+      <h2 class="h2">How to join</h2>
+
+      <div class="cards">
+
+        <article class="card card--primary">
+          <p class="card__kicker">Java Edition · Recommended</p>
+          <h3 class="card__title">Add the server</h3>
+          <ol class="steps">
+            <li>Open Minecraft: Java Edition, version <strong class="ver">26.2</strong>.</li>
+            <li>Go to <strong>Multiplayer → Add Server</strong>.</li>
+            <li>Server Name: anything you like.</li>
+            <li>Server Address: <code class="ip" data-copy="LittleStJames.net">LittleStJames.net</code></li>
+            <li>Save, then double-click it. That's it.</li>
+          </ol>
+          <p class="card__note">Open to everyone. Nothing to apply for, nobody to ask.</p>
+        </article>
+
+        <article class="card">
+          <p class="card__kicker">Java Edition · Fallback</p>
+          <h3 class="card__title">Direct connect</h3>
+          <p class="card__body">On some networks the short address won't resolve. If it doesn't get
+          you in, add the server again using the full address instead:</p>
+          <p class="bigip"><code class="ip" data-copy="mc.LittleStJames.net:25592">mc.LittleStJames.net:25592</code></p>
+          <p class="card__note">Same server, same world, same people.</p>
+        </article>
+
+        <article class="card card--warn">
+          <p class="card__kicker">Heads up</p>
+          <h3 class="card__title">Java only, for now</h3>
+          <p class="card__body">This is a Java Edition server. Bedrock players — console, mobile,
+          and the Windows/Microsoft Store version of Minecraft — can't connect to it, and the
+          address above won't work for you. Sorry. It's not a setting you can change on your end.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <img src="assets/icon.png" alt="" width="40" height="40">
+      <span>LittleStJames</span>
+    </div>
+    <p class="footer__meta">
+      <code class="ip" data-copy="LittleStJames.net">LittleStJames.net</code>
+      <span class="dot">·</span> Java <span class="ver">26.2</span> Survival
+    </p>
+    <p class="footer__fine">Not affiliated with Mojang or Microsoft. Be nice to each other.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var STATUS = document.getElementById('copyStatus');
+
+  /* Legacy path: works when the Clipboard API is absent OR refuses. */
+  function legacyCopy(text) {
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      ok ? resolve() : reject(new Error('execCommand copy failed'));
+    });
+  }
+
+  function copy(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+      /* If the API rejects (permission denied, document not focused, embedded
+         context), fall through to the legacy path rather than giving up. */
+      return navigator.clipboard.writeText(text).catch(function () {
+        return legacyCopy(text);
+      });
+    }
+    return legacyCopy(text);
+  }
+
+  function flash(msg) {
+    if (!STATUS) return;
+    STATUS.textContent = msg;
+    clearTimeout(flash._t);
+    flash._t = setTimeout(function () { STATUS.textContent = ''; }, 2600);
+  }
+
+  /* Big hero button */
+  var btn = document.getElementById('copyBtn');
+  var hint = document.getElementById('copyHint');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      copy(btn.dataset.ip).then(function () {
+        btn.classList.add('is-copied');
+        hint.textContent = 'Copied!';
+        flash('Server address copied to your clipboard.');
+        clearTimeout(btn._t);
+        btn._t = setTimeout(function () {
+          btn.classList.remove('is-copied');
+          hint.textContent = 'Tap to copy IP';
+        }, 2600);
+      }).catch(function () {
+        hint.textContent = 'Select and copy manually';
+        flash('Could not copy automatically — select the address and copy it.');
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------
+     Live player count.
+     GitHub Pages is static, so the browser asks a public status API
+     which does the actual server query. It follows our SRV record,
+     so the plain domain is the right thing to ask about. Responses
+     are cached ~60s upstream, so polling faster buys nothing.
+     --------------------------------------------------------------- */
+  var LIVE_URL = 'https://api.mcstatus.io/v2/status/java/littlestjames.net';
+  var live = document.getElementById('live');
+  var liveText = document.getElementById('liveText');
+  var liveWho = document.getElementById('liveWho');
+
+  function setLive(state, text) {
+    if (!live) return;
+    live.dataset.state = state;
+    liveText.textContent = text;
+  }
+
+  /* The version is printed in several places. Drive them all from the live
+     server rather than hardcoding, so the page cannot go stale after an
+     update. Falls back to whatever is already in the markup. */
+  function setVersion(v) {
+    if (!v) return;
+    v = String(v).trim();
+    if (!v || v.length > 24) return;          // ignore junk / long modded strings
+    Array.prototype.forEach.call(document.querySelectorAll('.ver'), function (el) {
+      el.textContent = v;
+    });
+  }
+
+  /* Renders a face + name chip per player. Faces come from mc-heads.net,
+     which renders the skin from the player's UUID. */
+  function setWho(players) {
+    if (!liveWho) return;
+    liveWho.textContent = '';
+
+    if (!players || !players.length) { liveWho.hidden = true; return; }
+
+    var shown = players.slice(0, 8);
+
+    shown.forEach(function (p) {
+      var chip = document.createElement('span');
+      chip.className = 'who';
+
+      /* The UUID comes from a third party and goes straight into a URL,
+         so only ever let 32 hex characters through. */
+      var id = String(p.uuid || '').replace(/-/g, '').toLowerCase();
+      if (/^[0-9a-f]{32}$/.test(id)) {
+        var img = document.createElement('img');
+        img.className = 'who__face';
+        img.width = 22;
+        img.height = 22;
+        img.alt = '';                    /* the name sits right beside it */
+        img.decoding = 'async';
+        img.referrerPolicy = 'no-referrer';
+        img.src = 'https://mc-heads.net/avatar/' + id + '/48';
+        /* If the avatar service is down, drop the image and keep the name. */
+        img.addEventListener('error', function () { img.remove(); });
+        chip.appendChild(img);
+      }
+
+      var nm = document.createElement('span');
+      nm.className = 'who__name';
+      nm.textContent = p.name;          /* textContent, never innerHTML */
+      chip.appendChild(nm);
+
+      liveWho.appendChild(chip);
+    });
+
+    if (players.length > shown.length) {
+      var more = document.createElement('span');
+      more.className = 'who who--more';
+      more.textContent = '+' + (players.length - shown.length) + ' more';
+      liveWho.appendChild(more);
+    }
+
+    liveWho.hidden = false;
+  }
+
+  function refreshLive() {
+    if (!live) return;
+
+    /* Don't let a hanging request leave "Checking…" on screen forever. */
+    var ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
+
+    fetch(LIVE_URL, ctl ? { signal: ctl.signal } : undefined)
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (d) {
+        clearTimeout(timer);
+        if (!d || !d.online) {
+          setLive('offline', 'Server offline');
+          setWho(null);
+          return;
+        }
+
+        if (d.version) setVersion(d.version.name_clean || d.version.name_raw);
+
+        var n = (d.players && typeof d.players.online === 'number') ? d.players.online : 0;
+        var max = (d.players && d.players.max) ? d.players.max : null;
+
+        /* The sample list is capped by the server and can be absent entirely,
+           so treat it as a bonus rather than the source of the count. */
+        var who = [];
+        if (d.players && d.players.list) {
+          who = d.players.list.map(function (p) {
+            return { name: p.name_clean || p.name_raw || '', uuid: p.uuid || '' };
+          }).filter(function (p) { return p.name; });
+        }
+        setWho(who);
+
+        if (n === 0) {
+          setLive('empty', 'Online — nobody on right now');
+        } else {
+          setLive('online', max ? n + ' of ' + max + ' players online'
+                                : n + (n === 1 ? ' player' : ' players') + ' online');
+        }
+      })
+      .catch(function () {
+        clearTimeout(timer);
+        /* The API is a third party; if it's down that says nothing
+           about the server, so don't claim the server is offline. */
+        setLive('unknown', 'Player count unavailable');
+        setWho(null);
+      });
+  }
+
+  if (live) {
+    refreshLive();
+    setInterval(refreshLive, 60000);
+    /* Re-check when someone comes back to the tab rather than showing stale data. */
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') refreshLive();
+    });
+  }
+
+  /* Inline <code class="ip"> chips */
+  Array.prototype.forEach.call(document.querySelectorAll('.ip[data-copy]'), function (el) {
+    el.setAttribute('role', 'button');
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('title', 'Click to copy');
+
+    function go() {
+      copy(el.dataset.copy).then(function () {
+        el.classList.add('is-copied');
+        flash('Copied ' + el.dataset.copy);
+        clearTimeout(el._t);
+        el._t = setTimeout(function () { el.classList.remove('is-copied'); }, 1600);
+      }).catch(function () {
+        flash('Could not copy — select it and copy manually.');
+      });
+    }
+
+    el.addEventListener('click', go);
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
