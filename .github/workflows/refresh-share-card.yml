@@ -34,13 +34,13 @@ jobs:
 
       - name: Commit only if something actually changed
         run: |
-          if [ -n "$(git status --porcelain assets/og-image.png tools/og-state.json)" ]; then
+          if [ -n "$(git status --porcelain assets/og-image.png tools/og-state.json index.html)" ]; then
             version=$(python -c "import json;print(json.load(open('tools/og-state.json'))['version'])")
             # Commit as the bot, never as a person — this repo is deliberately
             # not tied to a personal identity.
             git config user.name  "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add assets/og-image.png tools/og-state.json
+            git add assets/og-image.png tools/og-state.json index.html
             git commit -m "Refresh share card for version ${version}"
             git push
             echo "card rebuilt for ${version}"

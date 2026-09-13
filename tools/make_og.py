@@ -12,8 +12,10 @@ Force a rebuild:  python tools/make_og.py --force
 """
 
 import argparse
+import io
 import json
 import os
+import re
 import sys
 import urllib.request
 
@@ -23,6 +25,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS = os.path.join(ROOT, "assets")
 FONT = os.path.join(ROOT, "fonts", "Outfit.ttf")
 OUT = os.path.join(ASSETS, "og-image.png")
+INDEX = os.path.join(ROOT, "index.html")
 STATE = os.path.join(ROOT, "tools", "og-state.json")
 
 STATUS_API = "https://api.mcstatus.io/v2/status/java/littlestjames.net"
@@ -205,6 +208,24 @@ def build(version):
     print("  wrote %s (%s bytes)" % (os.path.relpath(OUT, ROOT), os.path.getsize(OUT)))
 
 
+def patch_markup(version):
+    """Keep the hardcoded fallback version in index.html in step.
+
+    The page fills these in from the API at runtime, but crawlers and anyone
+    with JavaScript off read the markup value, so it should not drift either.
+    """
+    with io.open(INDEX, encoding="utf-8") as f:
+        s = f.read()
+    new, n = re.subn(r'(<(span|strong) class="ver">)[^<]*(</\2>)',
+                     lambda m: m.group(1) + version + m.group(3), s)
+    if n and new != s:
+        with io.open(INDEX, "w", encoding="utf-8") as f:
+            f.write(new)
+        print("  patched %d version placeholders in index.html" % n)
+    else:
+        print("  markup already correct (%d placeholders)" % n)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true", help="rebuild even if the version is unchanged")
@@ -219,6 +240,7 @@ def main():
         return 0
 
     build(version)
+    patch_markup(version)
     with open(STATE, "w", encoding="utf-8") as f:
         json.dump({"version": version}, f, indent=2)
         f.write("\n")
